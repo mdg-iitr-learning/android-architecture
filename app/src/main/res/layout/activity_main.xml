@@ -9,7 +9,15 @@
         android:id="@+id/tv_hello_world"
         android:text="@string/hello_world"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="16dp"/>
+
+    <Button
+        android:layout_below="@id/tv_hello_world"
+        android:id="@+id/btn_request"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send Request"/>
 
     <ProgressBar
         android:id="@+id/progress_bar"
