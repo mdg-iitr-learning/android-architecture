@@ -4,13 +4,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainView {
 
     TextView textView;
     ProgressBar progressBar;
+    Button button;
+
+    Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +25,16 @@ public class MainActivity extends AppCompatActivity {
 
         textView = (TextView) findViewById(R.id.tv_hello_world);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        button = (Button) findViewById(R.id.btn_request);
+
+        presenter = new PresenterImpl(this);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.fetchData();
+            }
+        });
     }
 
     @Override
@@ -41,5 +57,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void showProgressbar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressbar() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setSuccessLayout() {
+        Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setErrorLayout() {
+        Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
     }
 }
